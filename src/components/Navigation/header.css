@@ -1,0 +1,41 @@
+.welcome-text {
+	width: max-content;
+}
+
+strong {
+	font-weight: bold;
+}
+
+/* Elements Plus Overrides */
+
+.el-header {
+	padding: 0 24px;
+	background-color: #545c64;
+	display: flex;
+	align-items: center;
+	color: #ffffff;
+	justify-content: space-between;
+}
+
+.el-menu {
+	width: 100%;
+	justify-content: flex-end;
+}
+
+.el-dropdown .el-icon {
+	color: #ffffff;
+}
+.el-menu-item a {
+	text-decoration: none;
+}
+.el-menu:not(.el-menu--collapse) .el-sub-menu__title {
+	padding: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+	.el-header {
+		justify-content: space-between;
+	}
+}
+
+/* Elements Plus Overrides */

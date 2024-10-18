@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import "./index.css";
+import "./login.css";
 import { auth } from "@/services/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { mapActions } from "vuex";
