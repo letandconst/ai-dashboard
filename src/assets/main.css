@@ -1,0 +1,12 @@
+@import './base.css';
+@import 'element-plus/dist/index.css';
+
+.full-height {
+	height: 100vh;
+}
+
+@media screen and (max-width: 767px) {
+	.full-height {
+		padding: 0 24px;
+	}
+}
