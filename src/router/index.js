@@ -24,6 +24,12 @@ const router = createRouter({
       component: () => import("../views/AllMedia.vue"),
       meta: { requiresAuth: true },
     },
+    {
+      path: "/manage-records",
+      name: "Manage Records",
+      component: () => import("../views/Records.vue"),
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

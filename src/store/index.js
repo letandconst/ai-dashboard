@@ -1,23 +1,18 @@
 import { createStore } from "vuex";
 import { auth, db } from "@/services/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth"; // Import signOut function
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const store = createStore({
   state: {
-    user: null,
     userDetails: null,
     loading: true,
   },
   mutations: {
-    setUser(state, user) {
-      state.user = user;
-    },
     setUserDetails(state, userDetails) {
       state.userDetails = userDetails;
     },
     clearUser(state) {
-      state.user = null;
       state.userDetails = null;
     },
     setLoading(state, loading) {
@@ -42,14 +37,18 @@ const store = createStore({
 
       commit("setLoading", false);
     },
-    initializeStore({ commit }) {
+    initializeStore({ dispatch }) {
       onAuthStateChanged(auth, (user) => {
-        commit("setUser", user);
-        this.dispatch("fetchUserDetails", user);
+        dispatch("fetchUserDetails", user);
       });
     },
-    logout({ commit }) {
-      commit("clearUser");
+    async logout({ commit }) {
+      try {
+        await signOut(auth);
+        commit("clearUser");
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
     },
   },
 });
