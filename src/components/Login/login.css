@@ -45,18 +45,18 @@ h2 {
 
 /* Elements Plus Overrides */
 
-.el-form-item {
+.login-form .el-form-item {
 	align-items: center;
 	margin-bottom: 32px;
 }
 
-.el-input__inner {
+.login-form .el-input__inner {
 	background-color: #fff;
 	border-radius: 8px;
 	color: var(--vt-c-text);
 }
 
-.el-form-item__error {
+.login-form .el-form-item__error {
 	margin-top: 4px;
 }
 
@@ -65,19 +65,19 @@ h2 {
 		border-radius: 8px;
 		padding: 18px;
 	}
-	.el-card__body {
+	.login-form .el-card__body {
 		padding: 0;
 	}
-	.el-form-item {
+	.login-form .el-form-item {
 		flex-direction: column;
 		align-items: flex-start;
 	}
 
-	.el-form-item__label {
+	.login-form .el-form-item__label {
 		justify-content: flex-start;
 	}
 
-	.el-form-item__content {
+	.login-form .el-form-item__content {
 		width: 100%;
 		margin-left: 0 !important;
 	}

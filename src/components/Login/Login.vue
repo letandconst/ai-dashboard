@@ -1,6 +1,6 @@
 <template>
   <el-row
-    class="d-flex flex-column justify-center align-center full-height"
+    class="d-flex flex-column justify-center align-center full-height login-form"
     type="flex"
     justify="center"
     align="middle"
