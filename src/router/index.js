@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { auth } from "@/services/firebase";
 
-import Login from "../components/Login/Login.vue";
+import Login from "@/components/Login/Login.vue";
+import ArticleBody from "@/components/Article/ArticleBody.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,12 @@ const router = createRouter({
       path: "/manage-records",
       name: "Manage Records",
       component: () => import("../views/Records.vue"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/article/:slug",
+      name: "Main Article",
+      component: ArticleBody,
       meta: { requiresAuth: true },
     },
   ],

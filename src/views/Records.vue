@@ -184,7 +184,13 @@ import PageTable from "@/components/Table/Table.vue";
 import PageModal from "@/components/Modal/Modal.vue";
 import PageButton from "@/components/Button/Button.vue";
 
-import { db, auth, storage, createUserAuthInstance } from "@/services/firebase";
+import {
+  db,
+  auth,
+  storage,
+  createUserAuthInstance,
+  fetchCompanies,
+} from "@/services/firebase";
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -323,26 +329,13 @@ export default {
       try {
         await addDoc(companies, this.newCompany);
 
-        await this.fetchCompanies();
+        await fetchCompanies();
 
         this.activeTab = "companies";
         this.companyModalVisible = false;
         this.resetForm();
       } catch (error) {
         console.error("Error adding company: ", error);
-      }
-    },
-
-    // Handle Get Company
-    async fetchCompanies() {
-      try {
-        const querySnapshot = await getDocs(collection(db, "companies"));
-        this.companyRows = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-      } catch (error) {
-        console.error("Error fetching companies: ", error);
       }
     },
 
@@ -532,7 +525,7 @@ export default {
     },
   },
   created() {
-    this.fetchCompanies();
+    fetchCompanies();
     this.fetchUsers();
   },
 };
