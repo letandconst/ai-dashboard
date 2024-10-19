@@ -29,4 +29,9 @@ setPersistence(auth, browserLocalPersistence)
     console.error("Error setting persistence:", error);
   });
 
+export function createUserAuthInstance() {
+  const newApp = initializeApp(firebaseConfig, "userCreationApp");
+  return getAuth(newApp);
+}
+
 export { auth, db, storage };

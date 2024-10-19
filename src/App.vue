@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="isLoggedIn && !loading" :user="user" />
+    <Header v-if="isLoggedIn && !loading" :user="userDetails" />
     <router-view />
   </div>
 </template>

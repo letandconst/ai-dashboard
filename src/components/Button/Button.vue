@@ -1,6 +1,6 @@
 <template>
   <el-button
-    :type="type"
+    :type="text"
     :loading="loading"
     :disabled="disabled"
     @click="handleClick"
@@ -13,7 +13,7 @@
 export default {
   name: "PageButton",
   props: {
-    type: {
+    text: {
       type: String,
       default: "primary",
     },
