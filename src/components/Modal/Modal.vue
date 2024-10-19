@@ -42,7 +42,6 @@ export default {
     },
     confirm() {
       this.$emit("confirm");
-      this.closeModal();
     },
   },
 };
