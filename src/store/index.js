@@ -29,7 +29,9 @@ const store = createStore({
 
         if (!querySnapshot.empty) {
           const userDetails = querySnapshot.docs[0].data();
-          commit("setUserDetails", userDetails);
+          const docId = querySnapshot.docs[0].id;
+
+          commit("setUserDetails", { ...userDetails, id: docId });
         }
       } else {
         commit("clearUser");

@@ -8,19 +8,17 @@
         class="article-card"
       >
         <template #header>{{ article.title }}</template>
-        <img
-          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-          style="width: 100%"
-        />
+        <img :src="article.featuredImage" style="width: 100%" />
         <p>Date: {{ formatDate(article.date) }}</p>
-        <p>Writer: {{ article.writerName }}</p>
-        <p>Editor: {{ article.editorName }}</p>
+        <p>Writer: {{ userMap[article.writer] || "" }}</p>
+        <p>Editor: {{ article.editor }}</p>
       </el-card>
     </div>
   </div>
 </template>
 
 <script>
+import { fetchUsers } from "@/services/data";
 export default {
   name: "ArticleWrapper",
   props: {
@@ -29,15 +27,41 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      userMap: {},
+    };
+  },
 
   methods: {
-    formatDate(dateString) {
-      const date = new Date(dateString);
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
-      const year = date.getFullYear();
-      return `${month}/${day}/${year}`;
+    formatDate(date) {
+      if (!date) return "";
+
+      const { seconds, nanoseconds } = date;
+      const milliseconds = seconds * 1000 + Math.floor(nanoseconds / 1000000);
+      const formattedDate = new Date(milliseconds);
+
+      return formattedDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
     },
+
+    async fetchUserMap() {
+      const users = await fetchUsers();
+      this.userMap = users.reduce((acc, user) => {
+        acc[user.id] = `${user.firstName} ${user.lastName}`;
+        return acc;
+      }, {});
+    },
+  },
+  async mounted() {
+    try {
+      await this.fetchUserMap();
+    } catch (error) {
+      console.error("Failed to load data", error);
+    }
   },
 };
 </script>
