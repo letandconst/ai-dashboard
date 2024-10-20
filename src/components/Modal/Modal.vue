@@ -11,7 +11,11 @@
       <el-button type="primary" @click="confirm">{{
         confirmText || "Submit"
       }}</el-button>
-      <el-button v-if="isEditor" type="success" @click="publish">
+      <el-button
+        v-if="isEditor && this.$route.path === '/all-media'"
+        type="success"
+        @click="publish"
+      >
         Publish
       </el-button>
     </template>
