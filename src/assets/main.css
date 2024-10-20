@@ -25,6 +25,10 @@
 	z-index: 1000;
 }
 
+.el-table .cell {
+	text-overflow: unset;
+}
+
 h1,
 h2,
 h3,

@@ -22,6 +22,11 @@ strong {
 	justify-content: flex-end;
 }
 
+.el-dropdown-menu__item a {
+	text-decoration: none;
+	color: #333;
+}
+
 .el-dropdown .el-icon {
 	color: #ffffff;
 }

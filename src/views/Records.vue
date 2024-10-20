@@ -320,7 +320,7 @@ export default {
       try {
         await addDoc(companies, this.newCompany);
 
-        await fetchCompanies();
+        this.companyRows = await fetchCompanies();
 
         this.activeTab = "companies";
         this.companyModalVisible = false;
@@ -419,7 +419,7 @@ export default {
           status: this.newUser.status,
         });
 
-        await fetchUsers();
+        this.userRows = await fetchUsers();
 
         await this.sendResetPasswordEmail(this.newUser.email);
         this.userModalVisible = false;
