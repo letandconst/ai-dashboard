@@ -187,7 +187,6 @@
                 v-model="form.date"
                 type="date"
                 placeholder="Pick a date"
-                :default-value="new Date()"
                 :class="{ 'is-error': errors.date }"
                 @change="
                   (value) => {
@@ -282,6 +281,9 @@ export default {
   methods: {
     handleModalClose() {
       this.editMode = false;
+      this.clearErrors();
+
+      this.form = this.resetForm();
     },
     resetForm() {
       return {
@@ -295,10 +297,11 @@ export default {
       };
     },
     handleAddArticle() {
-      this.form = this.resetForm();
-
       this.editorModal = true;
+
+      this.form.date = new Date();
     },
+
     async editArticle(article) {
       await this.fetchCompanyMap();
 
@@ -491,7 +494,7 @@ export default {
       const articleData = {
         title: this.form.title,
         link: slug,
-        date: this.form.date,
+        date: isUpdate ? this.form.date : new Date(),
         content: this.form.content,
         featuredImage: this.form.featuredImage,
         status: status,

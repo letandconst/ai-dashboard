@@ -1,5 +1,8 @@
 <template>
-  <div v-if="article">
+  <div v-if="loading" class="spinner-overlay">
+    <p>Loading...</p>
+  </div>
+  <div v-else-if="article">
     <div class="container article">
       <img
         :src="article.featuredImage"
@@ -37,6 +40,8 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/services/firebase";
 
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -47,6 +52,9 @@ export default {
   },
   async created() {
     await this.fetchArticle(this.$route.params.slug);
+  },
+  computed: {
+    ...mapState(["loading"]),
   },
 
   methods: {

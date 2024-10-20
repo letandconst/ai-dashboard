@@ -9,7 +9,13 @@
       <div class="text-center">
         <h2>Login</h2>
       </div>
-      <el-form :model="form" :rules="rules" ref="form" label-width="100px">
+      <el-form
+        :model="form"
+        :rules="rules"
+        ref="form"
+        label-width="100px"
+        @keydown="handleKeydown"
+      >
         <el-form-item label="Email" prop="email">
           <el-input
             v-model="form.email"
@@ -95,7 +101,7 @@ export default {
         if (valid) {
           this.login();
         } else {
-          console.log("Validation failed");
+          console.error("Validation failed");
           return false;
         }
       });
@@ -114,6 +120,13 @@ export default {
       } catch (err) {
         this.error = "Invalid email or password. Please try again.";
         console.error("Login error:", err);
+      }
+    },
+
+    handleKeydown(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        this.validateForm();
       }
     },
   },

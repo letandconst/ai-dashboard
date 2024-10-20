@@ -3,7 +3,6 @@
     <p>Loading...</p>
   </div>
   <div class="container" v-else>
-    <p>Type: {{ userDetails?.type }}</p>
     <h1>Dashboard</h1>
     <el-tabs v-model="activeTab">
       <el-tab-pane label="For Edit" name="edit">

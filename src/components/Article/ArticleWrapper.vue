@@ -1,18 +1,22 @@
 <template>
   <div>
     <div class="article-grid">
-      <el-card
-        style="max-width: 480px"
+      <a
         v-for="article in articles"
         :key="article.id"
-        class="article-card"
+        :href="`/article/${article.link}`"
+        class="article-card-link"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        <template #header>{{ article.title }}</template>
-        <img :src="article.featuredImage" style="width: 100%" />
-        <p>Date: {{ formatDate(article.date) }}</p>
-        <p>Writer: {{ userMap[article.writer] || "" }}</p>
-        <p>Editor: {{ article.editor }}</p>
-      </el-card>
+        <el-card style="max-width: 480px" class="article-card">
+          <template #header>{{ article.title }}</template>
+          <img :src="article.featuredImage" style="width: 100%" />
+          <p>Date: {{ formatDate(article.date) }}</p>
+          <p>Writer: {{ userMap[article.writer] || "" }}</p>
+          <p>Editor: {{ article.editor }}</p>
+        </el-card>
+      </a>
     </div>
   </div>
 </template>
@@ -84,5 +88,9 @@ export default {
 
 .article-info {
   padding: 16px;
+}
+
+.article-card-link {
+  text-decoration: none;
 }
 </style>
