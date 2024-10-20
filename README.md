@@ -1,35 +1,52 @@
-# article-dashboard
+# Writer / Editor Dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+A sample writer/editor dashboard for managing articles using Vue , Vite and Firebase.
 
-## Recommended IDE Setup
+## Installation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+To setup the project, locate to the directory first then install the dependencies.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
+cd restaurant-menu
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+To run the application,
 
-```sh
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+You can now visit http://localhost:5173/, to see the running app.
 
-```sh
-npm run build
-```
+## Features
 
-### Lint with [ESLint](https://eslint.org/)
+- User Authentication
+- User & Company Management
+- Article Writing & Editing using Wysiwyg Editor
+- Image Uploading
 
-```sh
-npm run lint
-```
+## Permissions
+
+Writer :
+
+- Create Articles
+- Can Edit Articles that are (" For Edit ") only
+
+Editor :
+
+- Edit and Publish Articles
+- Manage Users ( create & update )
+- Manage Companies ( create & update )
+
+## Demo
+
+Test Writer Account
+
+- Email: writer1@gmail.com
+- Password: Password
+
+Test Editor Account
+
+- Email: editor1@gmail.com
+- Password: Password
