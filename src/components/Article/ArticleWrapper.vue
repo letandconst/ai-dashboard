@@ -14,7 +14,7 @@
           <img :src="article.featuredImage" style="width: 100%" />
           <p>Date: {{ formatDate(article.date) }}</p>
           <p>Writer: {{ userMap[article.writer] || "" }}</p>
-          <p>Editor: {{ article.editor }}</p>
+          <p>Editor: {{ userMap[article.editor] || "" }}</p>
         </el-card>
       </a>
     </div>
