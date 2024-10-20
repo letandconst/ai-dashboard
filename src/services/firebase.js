@@ -5,7 +5,7 @@ import {
   browserLocalPersistence,
 } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FB_API_KEY,
@@ -33,19 +33,5 @@ export function createUserAuthInstance() {
   const newApp = initializeApp(firebaseConfig, "userCreationApp");
   return getAuth(newApp);
 }
-
-export const fetchCompanies = async () => {
-  try {
-    const querySnapshot = await getDocs(collection(db, "companies"));
-    const companies = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return companies;
-  } catch (error) {
-    console.error("Error fetching companies: ", error);
-    throw error; 
-  }
-};
 
 export { auth, db, storage };
