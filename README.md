@@ -41,6 +41,8 @@ Editor :
 
 ## Demo
 
+URL: https://article-dashboard.netlify.app/
+
 Test Writer Account
 
 - Email: writer1@gmail.com
