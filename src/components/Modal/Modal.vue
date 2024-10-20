@@ -8,12 +8,18 @@
     </template>
     <template #footer>
       <el-button @click="closeModal">Cancel</el-button>
-      <el-button type="primary" @click="confirm">Confirm</el-button>
+      <el-button type="primary" @click="confirm">{{
+        confirmText || "Submit"
+      }}</el-button>
+      <el-button v-if="isEditor" type="success" @click="publish">
+        Publish
+      </el-button>
     </template>
   </el-dialog>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "PageModal",
   props: {
@@ -25,8 +31,13 @@ export default {
       type: Boolean,
       required: true,
     },
+    confirmText: {
+      type: String,
+      default: "Submit",
+    },
   },
   computed: {
+    ...mapState(["userDetails"]),
     visible: {
       get() {
         return this.modelValue;
@@ -35,6 +46,9 @@ export default {
         this.$emit("update:modelValue", value);
       },
     },
+    isEditor() {
+      return this.userDetails?.type === "Editor";
+    },
   },
   methods: {
     closeModal() {
@@ -42,6 +56,9 @@ export default {
     },
     confirm() {
       this.$emit("confirm");
+    },
+    publish() {
+      this.$emit("publish");
     },
   },
 };

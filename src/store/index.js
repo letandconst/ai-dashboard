@@ -7,8 +7,19 @@ const store = createStore({
   state: {
     userDetails: null,
     loading: true,
+    activeMenu: 2,
   },
   mutations: {
+    setActiveMenu(state, menuIndex) {
+      state.activeMenu = menuIndex;
+      localStorage.setItem("activeMenu", menuIndex);
+    },
+    loadActiveMenuFromStorage(state) {
+      const savedMenu = localStorage.getItem("activeMenu");
+      if (savedMenu) {
+        state.activeMenu = Number(savedMenu);
+      }
+    },
     setUserDetails(state, userDetails) {
       state.userDetails = userDetails;
     },
@@ -20,6 +31,9 @@ const store = createStore({
     },
   },
   actions: {
+    initializeActiveMenu({ commit }) {
+      commit("loadActiveMenuFromStorage");
+    },
     async fetchUserDetails({ commit }, user) {
       commit("setLoading", true);
       if (user) {
@@ -52,6 +66,9 @@ const store = createStore({
         console.error("Logout error:", error);
       }
     },
+  },
+  getters: {
+    getActiveMenu: (state) => state.activeMenu,
   },
 });
 

@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+  <div v-if="loading" class="spinner-overlay">
+    <p>Loading...</p>
+  </div>
+  <div v-else class="container">
     <h1>Manage Records</h1>
     <div class="button-group">
       <PageButton
@@ -184,18 +187,16 @@ import PageTable from "@/components/Table/Table.vue";
 import PageModal from "@/components/Modal/Modal.vue";
 import PageButton from "@/components/Button/Button.vue";
 
-import {
-  db,
-  auth,
-  storage,
-  createUserAuthInstance,
-  fetchCompanies,
-} from "@/services/firebase";
+import { fileUpload } from "@/utils/fileUpload";
+import { db, auth, createUserAuthInstance } from "@/services/firebase";
+import { fetchCompanies, fetchUsers } from "@/services/data";
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import { mapState } from "vuex";
+
 import {
   collection,
   addDoc,
@@ -277,21 +278,11 @@ export default {
     };
   },
   methods: {
-    // Handle Logo Upload
     async handleUploadLogo(file) {
       this.isUploading = true;
-      const isImage = file.raw.type.startsWith("image/");
-      if (!isImage) {
-        this.$message.error("You can only upload image files!");
-        return;
-      }
 
       try {
-        const storageRef = ref(storage, `logos/${file.raw.name}`);
-
-        await uploadBytes(storageRef, file.raw);
-
-        const url = await getDownloadURL(storageRef);
+        const url = await fileUpload(file, "logos");
 
         this.imageUrl = url;
         this.newCompany.logo = url;
@@ -301,8 +292,8 @@ export default {
         }, 1000);
       } catch (error) {
         this.isUploading = false;
-        console.error("Upload failed: ", error);
-        this.$message.error("Upload failed!");
+        console.error(error.message);
+        this.$message.error(error.message);
       }
     },
 
@@ -428,7 +419,7 @@ export default {
           status: this.newUser.status,
         });
 
-        await this.fetchUsers();
+        await fetchUsers();
 
         await this.sendResetPasswordEmail(this.newUser.email);
         this.userModalVisible = false;
@@ -437,19 +428,6 @@ export default {
       } catch (error) {
         console.error("Error adding user: ", error);
         this.errors = { ...this.errors, ...error };
-      }
-    },
-
-    // Handle Get Users
-    async fetchUsers() {
-      try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        this.userRows = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-      } catch (error) {
-        console.error("Error fetching users: ", error);
       }
     },
 
@@ -524,9 +502,20 @@ export default {
       this.resetForm();
     },
   },
+  computed: {
+    ...mapState(["loading"]),
+  },
   created() {
     fetchCompanies();
-    this.fetchUsers();
+    fetchUsers();
+  },
+  async mounted() {
+    try {
+      this.companyRows = await fetchCompanies();
+      this.userRows = await fetchUsers();
+    } catch (error) {
+      console.error("Error loading data: ", error);
+    }
   },
 };
 </script>
