@@ -7,7 +7,7 @@ A sample writer/editor dashboard for managing articles using Vue , Vite and Fire
 To setup the project, locate to the directory first then install the dependencies.
 
 ```bash
-cd restaurant-menu
+cd ai-dashboard
 npm install
 ```
 
