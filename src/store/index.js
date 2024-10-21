@@ -29,6 +29,10 @@ const store = createStore({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    resetActiveMenu(state) {
+      state.activeMenu = 2;
+      localStorage.setItem("activeMenu", 2);
+    },
   },
   actions: {
     initializeActiveMenu({ commit }) {
@@ -62,6 +66,7 @@ const store = createStore({
       try {
         await signOut(auth);
         commit("clearUser");
+        commit("resetActiveMenu");
       } catch (error) {
         console.error("Logout error:", error);
       }
