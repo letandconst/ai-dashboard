@@ -46,9 +46,9 @@ URL: https://article-dashboard.netlify.app/
 Test Writer Account
 
 - Email: writer1@gmail.com
-- Password: Password
+- Password: password
 
 Test Editor Account
 
 - Email: editor1@gmail.com
-- Password: Password
+- Password: password
